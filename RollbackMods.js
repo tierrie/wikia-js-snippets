@@ -49,8 +49,10 @@ function warnUser(username, warntype, warnpage, rblink) {
 function rollbackLinks () {
 	baselink = $(".mw-rollback-link a")[0];
 	warntypes = {"vandalism": "V", "badedit": "BE", "ddd": "DDD", "irl": "IRL", 'leak': "LEAK"};
-	for (var i in warntypes) {
-		$(baselink).after('&nbsp;&bull;&nbsp;<a href="' + baselink.href + '" warntype="' + i + '">RB (' + warntypes[i] + ')</a>');
+	for ( var i in warntypes ) {
+		if ( warntypes.hasOwnProperty( i ) ) {
+			$(baselink).after('&nbsp;&bull;&nbsp;<a href="' + baselink.href + '" warntype="' + i + '">RB (' + warntypes[i] + ')</a>');
+		}
 	}
 }
 $(function() {

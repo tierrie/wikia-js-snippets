@@ -13,8 +13,10 @@ function QLicenseUI() {
 		'{{Fairuse}}': 'Fair use'
 	};
 	var optstr = '';
-	for(i in options) {
-		optstr += '<option value="' + i + '" style="text-align:center;">' + options[i] + '</option>';
+	for ( i in options ) {
+		if ( options.hasOwnProperty( i ) ) {
+			optstr += '<option value="' + i + '" style="text-align:center;">' + options[i] + '</option>';
+		}
 	}
 
 	var html = '<p style="text-align:center;"><select id="QLicenseSelect">' + optstr + '</select>&nbsp;<a class="wikia-button" style="margin:0 1em; cursor:pointer;" id="aSubmit">Add license</a>';

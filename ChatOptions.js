@@ -190,9 +190,11 @@ function updateChatSkin() {
 	$('.Write .message').css({"background-color":chatOptions.look.backgroundColor});
 	$('.ChatHeader .User .username').css({"color":chatOptions.look.fontColor});
 	for (var m in chatOptions.modules) {
-		var module = chatOptions.modules[m];
-		if (typeof module.enabled === 'boolean' && module.enabled && !module.loaded) {
-			module.load();
+		if ( chatOptions.modules.hasOwnProperty( m ) ) {
+			var module = chatOptions.modules[m];
+			if (typeof module.enabled === 'boolean' && module.enabled && !module.loaded) {
+				module.load();
+			}
 		}
 	}
 }
@@ -267,11 +269,13 @@ function updateCookie() {
 	chatOptions.look.surroundColor = $('#surroundColourinput').val();
      chatOptions.look.selfPostColor = $('#selfPostColourinput').val();
 	for (var m in chatOptions.modules) {
-		var module = chatOptions.modules[m];
-		if (typeof module.element != 'undefined' && $(module.element).attr("checked")) {
-			module.enabled = true;
-		} else {
-			module.enabled = false;
+		if ( chatOptions.modules.hasOwnProperty( m ) ) {
+			var module = chatOptions.modules[m];
+			if (typeof module.element != 'undefined' && $(module.element).attr("checked")) {
+				module.enabled = true;
+			} else {
+				module.enabled = false;
+			}
 		}
 	}
 	

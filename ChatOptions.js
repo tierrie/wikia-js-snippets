@@ -225,6 +225,7 @@ function openOptions() {
 	    }
 	]
 	});
+	$(".close").click(cancelChanges);
 	// Check if various modules have been enabled by the user, and check their boxes if so
 	if (chatOptions.modules.chatHacks.enabled)
 		$("#chatHacks").attr("checked",true);
@@ -282,8 +283,7 @@ function updateCookie() {
 	// Set the cookies
 	setCookie("customisation", chatOptions.look.backgroundColor + ", " + chatOptions.look.fontColor + ", " + chatOptions.modules.chatHacks.enabled + ", " + chatOptions.look.fontFamily + ", " + chatOptions.modules.tabComplete.enabled + ", " +  chatOptions.modules.multiKick.enabled + ", " + chatOptions.modules.multiPM.enabled + ", " + chatOptions.modules.searchBar.enabled + ", " + chatOptions.modules.ignoreURL.enabled + ", " + chatOptions.modules.stopSideScroll.enabled + ", " + chatOptions.look.surroundColor + ", " + chatOptions.look.selfPostColor);
 	updateChatSkin();
-	$('#optionsWindow').remove();
-	$('.blackout').remove();
+	cancelChanges();
 }
 
 

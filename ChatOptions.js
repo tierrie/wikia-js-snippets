@@ -242,6 +242,12 @@ function openOptions() {
 	if (chatOptions.modules.stopSideScroll.enabled)
 		$("#stopSideScroll").attr("checked",true);
 	
+	if (typeof chatOptions.look.customFonts !== "undefined" && chatOptions.look.customFonts.length) {
+		for (var i = 0; i < chatOptions.look.customFonts.length; i++) {
+			var font = chatOptions.look.customFonts[i];
+			$("#fontList").append('<option value="' + font+ '" style="font-family:' + font + ';">' + font.slice(0,1).toUpperCase() + font.slice(1) + '</option>');
+		}
+	}
 	// Set certain modules' checkboxes to disabled if specific conditions are not met
 	if (!wgUserGroups.indexOf("chatmoderator") && !wgUserGroups.indexOf("sysop") && !wgUserGroups.indexOf("staff") && !wgUserGroups.indexOf("helper") && !wgUserGroups.indexOf("vstf"))
 		$("#multiKick").attr("disabled",true);

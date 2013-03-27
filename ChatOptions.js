@@ -242,9 +242,9 @@ function openOptions() {
 	if (chatOptions.modules.stopSideScroll.enabled)
 		$("#stopSideScroll").attr("checked",true);
 	
-	if (typeof chatOptions.look.customFonts !== "undefined" && chatOptions.look.customFonts.length) {
-		for (var i = 0; i < chatOptions.look.customFonts.length; i++) {
-			var font = chatOptions.look.customFonts[i];
+	if (typeof window.customFonts !== "undefined" && window.customFonts.length) {
+		for (var i = 0; i < window.customFonts.length; i++) {
+			var font = window.customFonts[i];
 			$("#fontList").append('<option value="' + font+ '" style="font-family:' + font + ';">' + font.slice(0,1).toUpperCase() + font.slice(1) + '</option>');
 		}
 	}

@@ -109,7 +109,7 @@ var chatOptions = {
 			load: function () {
 				if ($("#pingspan").length > 0 || this.loaded)
 					return;
-				importScriptPage('User:Phillycj/chat2.js', 'c');
+				importScriptPage("User:Monchoman45/ChatHacks.js", "c");
 				this.loaded = true;
 			}
 		},

@@ -34,7 +34,7 @@ function warnUser(username, warntype, warnpage, rblink) {
 			$.ajax( {
 				url: rblink.attr("href"),
 				success: function () {
-                                window.location = "/wiki/" + wgPageName + "?action=purge";
+                                window.location = "/wiki/" + mw.config.get("wgUserName") + "?action=purge";
 					console.log("Success!");
 				},
 				error: function () {
@@ -63,7 +63,7 @@ $(function() {
 			var user = $rblink.attr( 'href' ).replace( /.*[&?]from=([^&]*).*/, '$1' ).replace( /\+/g, '_' );
 			if ($rblink.attr("warntype") != undefined && $rblink.attr("warntype") != null) {
 				event.preventDefault();
-				warnUser(user, $rblink.attr("warntype"), wgPageName, $rblink);
+				warnUser(user, $rblink.attr("warntype"), mw.config.get("wgPageName"), $rblink);
 				console.log("Warned " + user);
 			} else {
 				window.location = $rblink.attr("href");

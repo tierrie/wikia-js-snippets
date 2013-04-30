@@ -28,8 +28,8 @@ function QLicenseUI() {
 	$('#filetoc').append(html);
 	$('#aSubmit').click( function(event) {
 		this.innerHTML = '<img src="http://images2.wikia.nocookie.net/dev/images/8/82/Facebook_throbber.gif" style="vertical-align: baseline;" border="0" />';
-		$.post("/api.php", {action: "edit", title: wgPageName, token: mw.user.tokens.values.editToken, bot: true, appendtext: $("#QLicenseSelect").val(), summary: "Licensing image."}, function (result) {
-			window.location = wgServer + '/index.php?title=' + wgPageName + '&action=purge';
+		$.post("/api.php", {action: "edit", title: mw.config.get("wgPageName"), token: mw.user.tokens.values.editToken, bot: true, appendtext: $("#QLicenseSelect").val(), summary: "Licensing image."}, function (result) {
+			window.location = wgServer + '/index.php?title=' + mw.config.get("wgPageName") + '&action=purge';
 		});
 	});
 }

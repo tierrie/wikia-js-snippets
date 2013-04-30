@@ -28,7 +28,7 @@
  * @param data The value of the cookie to be set
  */
 function setCookie( cookie_name, data ) {
-	var domain = wgServer.split("//")[1];
+	var domain = mw.config.get("wgServer").split("//")[1];
 	document.cookie =
 		cookie_name + "=" + data +
 		"; max-age=" + 60*60*24*150 +
@@ -127,7 +127,8 @@ var chatOptions = {
 			enabled: isEnabled("multiKick"),
 			loaded: false,
 			load: function () {
-				if ((!wgUserGroups.indexOf("chatmoderator") && !wgUserGroups.indexOf("sysop") && !wgUserGroups.indexOf("staff") && !wgUserGroups.indexOf("helper") && !wgUserGroups.indexOf("vstf")) || $("multiKickerButton").length) {
+				var groups = mw.config.get("wgUserGroups");
+				if ((!groups("wgUserGroups").indexOf("chatmoderator") && !groups.indexOf("sysop") && !groups.indexOf("staff") && !groups.indexOf("helper") && !groups.indexOf("vstf")) || $("multiKickerButton").length) {
 					return; // Do not load
 				}
 				importScriptPage("User:Madnessfan34537/multikick.js","cod");

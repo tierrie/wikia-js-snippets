@@ -251,7 +251,7 @@ function openOptions() {
 	// Set certain modules' checkboxes to disabled if specific conditions are not met
 	if (!wgUserGroups.indexOf("chatmoderator") && !wgUserGroups.indexOf("sysop") && !wgUserGroups.indexOf("staff") && !wgUserGroups.indexOf("helper") && !wgUserGroups.indexOf("vstf"))
 		$("#multiKick").attr("disabled",true);
-	if (wgServer !== "http://callofduty.wikia.com" && typeof window.ignoreBot != "undefined")
+	if (mw.config.get("wgServer") !== "http://callofduty.wikia.com" && typeof window.ignoreBot === "undefined")
 		$("#ignoreURL").attr("disabled",true);
 		
 	$("select option[value='" + chatOptions.look.fontFamily + "']").attr("selected","selected"); // sets the font selector to the one chosen currently

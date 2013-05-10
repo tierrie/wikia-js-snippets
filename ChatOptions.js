@@ -128,7 +128,7 @@ var chatOptions = {
 			loaded: false,
 			load: function () {
 				var groups = mw.config.get("wgUserGroups");
-				if ((!groups("wgUserGroups").indexOf("chatmoderator") && !groups.indexOf("sysop") && !groups.indexOf("staff") && !groups.indexOf("helper") && !groups.indexOf("vstf")) || $("multiKickerButton").length) {
+				if ((!groups.indexOf("chatmoderator") && !groups.indexOf("sysop") && !groups.indexOf("staff") && !groups.indexOf("helper") && !groups.indexOf("vstf")) || $("multiKickerButton").length) {
 					return; // Do not load
 				}
 				importScriptPage("User:Madnessfan34537/multikick.js","cod");

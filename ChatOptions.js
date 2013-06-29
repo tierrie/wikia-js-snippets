@@ -85,7 +85,7 @@ if(wgCanonicalSpecialPageName == 'Chat') {
         font: {
           default_color: "rgb(212,212,212)",
           color: getCookie("fontcolor"),
-          font: getCookie("fontfamily"),
+          family: getCookie("fontfamily"),
         },
         surround: {
           default_color: "rgb(0,0,0)",
@@ -130,7 +130,7 @@ if(wgCanonicalSpecialPageName == 'Chat') {
             if ((!groups.indexOf("chatmoderator") && !groups.indexOf("sysop") && !groups.indexOf("staff") && !groups.indexOf("helper") && !groups.indexOf("vstf")) || $("MultiKickerButton").length) {
               return; // Do not load
             }
-            importScriptPage("User:Madnessfan34537/MultiKick.js","cod");
+            importScriptPage("User:Madnessfan34537/multikick.js","cod");
             $('<a id="MultiKickerButton" class="wikia-button" href="javascript:showPopup()" style="position:absolute; right:55px; top:22px;">MultiKick</a>').appendTo('.Write'); // to prevent issues with the button not loading
             this.loaded = true;
           }
@@ -140,7 +140,7 @@ if(wgCanonicalSpecialPageName == 'Chat') {
           enabled: isEnabled("MultiPM"),
           loaded: false,
           load: function () {
-            importScriptPage("MediaWiki:Chat.js/MultiPMs.js", "cod");
+            importScriptPage("MediaWiki:Chat.js/multipms.js", "cod");
             this.loaded = true;
           }
         },
@@ -149,7 +149,7 @@ if(wgCanonicalSpecialPageName == 'Chat') {
           enabled: isEnabled("SearchBar"),
           loaded: false,
           load: function () {
-            importScriptPage("MediaWiki:Chat.js/SearchBar.js","cod");
+            importScriptPage("MediaWiki:Chat.js/searchbar.js","cod");
             this.loaded = true;
           }
         },
@@ -204,7 +204,7 @@ if(wgCanonicalSpecialPageName == 'Chat') {
      * Displays the options window
      */
     function openOptions() {
-      $.showCustomModal( "Options", '<form class="WikiaForm"><fieldset><div class="input-group"><label>Features</label><div id="chat_look_backgroundcolor" class="chat_look"><div id="color_selector_backgroundcolor" class="color_selector"><div></div></div>Background color<a title="Reset colors to default">[x]</a></div><div id="chat_look_selfbackgroundcolor" class="chat_look"><div id="color_selector_selfbackgroundcolor" class="color_selector"><div></div></div>Own messages background color<a title="Reset colors to default">[x]</a></div><div id="chat_look_surroundcolor" class="chat_look"><div id="color_selectorsurroundcolor" class="color_selector"><div></div></div>Surround color<a title="Reset colors to default">[x]</a></div><div id="chat_look_fontcolor" class="chat_look"><div id="color_selector_fontcolor" class="color_selector"><div></div></div>Font color<a title="Reset colors to default">[x]</a></div></div><div class="input-group"><label>Style</label><div id="chat_modules_chathacks"><input type="checkbox" name="ChatHacks" value="ChatHacks" id="ChatHacks"/>Enable <a href="http://c.wikia.com/wiki/User:Monchoman45/ChatHacks.js" target="_blank">chat hacks</a></div><div id="chat_modules_multipm"><input type="checkbox" name="MultiPM" value="MultiPM" id="MultiPM"/>Enable <a href="http://callofduty.wikia.com/wiki/User:Madnessfan34537/MultiPM.js" target="_blank">multi user messaging</a></div><div id="chat_modules_tabcomplete"><input type="checkbox" name="TabComplete" value="TabComplete" id="TabComplete"/>Enable <a href="http://runescape.wikia.com/wiki/User:Joeytje50/tabinsert.js" target="_blank">tab completion</a></div><div id="chat_modules_searchbar"><input type="checkbox" name="SearchBar" value="SearchBar" id="SearchBar"/>Enable <a href="http://callofduty.wikia.com/wiki/MediaWiki:Chat.js/SearchBar.js" target="_blank">wiki search bar</a></div><div id="chat_modules_multikick"><input type="checkbox" name="MultiKick" value="MultiKick" id="MultiKick" />Enable <a href="http://callofduty.wikia.com/wiki/User:Madnessfan34537/MultiKick.js" target="_blank">multi kick</a></div><div id="chat_modules_ignoreurl"><input type="checkbox" name="IgnoreURL" value="IgnoreURL" id="IgnoreURL"/>Ignore URL in main chat</div><div id="chat_modules_stopsidescroll"><input type="checkbox" name="StopSideScroll" value="StopSideScroll" id="StopSideScroll"/>Stop side scroll during spam</div></div></fieldset></form>',
+      $.showCustomModal( "Options", '<form class="WikiaForm"><fieldset><div class="input-group"><label>Colors</label><div id="chat_look_backgroundcolor" class="chat_look"><div id="color_selector_backgroundcolor" class="color_selector"><div></div></div>Background color<a title="Reset colors to default">[x]</a></div><div id="chat_look_selfbackgroundcolor" class="chat_look"><div id="color_selector_selfbackgroundcolor" class="color_selector"><div></div></div>Own messages background color<a title="Reset colors to default">[x]</a></div><div id="chat_look_surroundcolor" class="chat_look"><div id="color_selectorsurroundcolor" class="color_selector"><div></div></div>Surround color<a title="Reset colors to default">[x]</a></div><div id="chat_look_fontcolor" class="chat_look"><div id="color_selector_fontcolor" class="color_selector"><div></div></div>Font color<a title="Reset colors to default">[x]</a></div></div><div class="input-group"><label>Font</label><select id="chat_look_fontface"><option value="arial" style="font-family:arial;">Arial</option><option value="courier new" style="font-family:courier new;">Courier new</option><option value="georgia" style="font-family:georgia;">Georgia</option><option value="palatino linotype" style="font-family:palatino linotype;">Palatino linotype</option><option value="Comic Sans MS" style="font-family:Comic Sans MS;">Comic sans</option><option value="tahoma" style="font-family:tahoma;">Tahoma</option><option value="Trebuchet MS" style="font-family:Trebuchet MS;">Trebuchet MS</option><option value="Verdana" style="font-family:Verdana;">Verdana</option><option value="Lucida Console" style="font-family:Lucida Console;">Lucida Console</option></select>Font family</div><div class="input-group"><label>Features</label><div id="chat_modules_chathacks"><input type="checkbox" name="ChatHacks" value="ChatHacks" id="ChatHacks"/>Enable <a href="http://c.wikia.com/wiki/User:Monchoman45/ChatHacks.js" target="_blank">chat hacks</a></div><div id="chat_modules_multipm"><input type="checkbox" name="MultiPM" value="MultiPM" id="MultiPM"/>Enable <a href="http://callofduty.wikia.com/wiki/User:Madnessfan34537/MultiPM.js" target="_blank">multi user messaging</a></div><div id="chat_modules_tabcomplete"><input type="checkbox" name="TabComplete" value="TabComplete" id="TabComplete"/>Enable <a href="http://runescape.wikia.com/wiki/User:Joeytje50/tabinsert.js" target="_blank">tab completion</a></div><div id="chat_modules_searchbar"><input type="checkbox" name="SearchBar" value="SearchBar" id="SearchBar"/>Enable <a href="http://callofduty.wikia.com/wiki/MediaWiki:Chat.js/SearchBar.js" target="_blank">wiki search bar</a></div><div id="chat_modules_multikick"><input type="checkbox" name="MultiKick" value="MultiKick" id="MultiKick" />Enable <a href="http://callofduty.wikia.com/wiki/User:Madnessfan34537/MultiKick.js" target="_blank">multi kick</a></div><div id="chat_modules_ignoreurl"><input type="checkbox" name="IgnoreURL" value="IgnoreURL" id="IgnoreURL"/>Ignore URL in main chat</div><div id="chat_modules_stopsidescroll"><input type="checkbox" name="StopSideScroll" value="StopSideScroll" id="StopSideScroll"/>Stop side scroll during spam</div></div></fieldset></form>',
       {
         id: "optionsWindow",
         width: 450,
@@ -247,7 +247,7 @@ if(wgCanonicalSpecialPageName == 'Chat') {
       if (typeof window.customFonts !== "undefined" && window.customFonts.length) {
         for (var i = 0; i < window.customFonts.length; i++) {
           var font = window.customFonts[i];
-          $("#fontList").append('<option value="' + font+ '" style="font-family:' + font + ';">' + font.slice(0,1).toUpperCase() + font.slice(1) + '</option>');
+          $("#fontfamily").append('<option value="' + font+ '" style="font-family:' + font + ';">' + font.slice(0,1).toUpperCase() + font.slice(1) + '</option>');
         }
       }
       
@@ -275,7 +275,7 @@ if(wgCanonicalSpecialPageName == 'Chat') {
     				$(el + ' div').css('background-color', '#' + hex);
     			},
     			onBeforeShow: function(colpkr) {
-    				$(this).ColorPickerSetColor(rgb2hex(cur));
+    				$(this).ColorPickerSetColor(rgb2hex($(el + ' div').css('background-color')));
     			}
     		});
       }
@@ -309,10 +309,10 @@ if(wgCanonicalSpecialPageName == 'Chat') {
      */
     function updateCookie() {
       chatOptions.look.background.color = $('#color_selector_backgroundcolor div').css('background-color');
-      chatOptions.look.font.color = $('#color_selector_fontcolor div').css('background-color');
-      //chatOptions.look.font.family = $('#fontList').val();
       chatOptions.look.surround.color = $('#color_selectorsurroundcolor div').css('background-color');
       chatOptions.look.selfpost.color = $('#color_selector_selfbackgroundcolor div').css('background-color');
+      chatOptions.look.font.color = $('#color_selector_fontcolor div').css('background-color');
+      chatOptions.look.font.family = $('#chat_look_fontface').val();
       
       for (var m in chatOptions.modules) {
         if ( chatOptions.modules.hasOwnProperty( m ) ) {

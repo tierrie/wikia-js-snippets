@@ -30,6 +30,9 @@
  * Moved setCookies to jQuery cookies, fixed cookie compliance issue
  * Added color pickers
  * Cleaned up UI
+ *
+ * @version 2.1.0
+ * Changed colorPicker so the default values can be preset in a wiki's css
  */
 
 
@@ -38,8 +41,13 @@ if(wgCanonicalSpecialPageName == 'Chat') {
     
     // load color picker if it is not already loaded
     if (!$.fn.ColorPicker || typeof($.fn.ColorPicker) == undefined) {
-      importScript('MediaWiki:Jquery.colorpicker.js');
-      importStylesheet('MediaWiki:Jquery.colorpicker.css');
+      importScriptPage('Jquery/Colorpicker.js', 'scripts');
+      importStylesheetPage('Jquery/Colorpicker.css', 'scripts');
+    }
+    
+    // load cookies if it is not already loaded
+    if(typeof($.cookie) === undefined) {
+      mw.loader.using(['jquery.cookie']);
     }
     
     var cookie_id = 'chat';
@@ -83,20 +91,20 @@ if(wgCanonicalSpecialPageName == 'Chat') {
     var chatOptions = {
       look: {
         font: {
-          default_color: "rgb(212,212,212)",
+          default_color: "rgb(212,212,212)", // legacy, actual value is derived from $('.chat_font_color_default').css('background-color') -- note that this is background-color and not color
           color: getCookie("fontcolor"),
           family: getCookie("fontfamily"),
         },
         surround: {
-          default_color: "rgb(0,0,0)",
+          default_color: "rgb(0,0,0)", // legacy, actual value is derived from $('.chat_surround_color_default').css('background-color')
           color: getCookie("surroundcolor"),
         },
         selfpost: {
-          default_color: "rgb(33,33,33)",
+          default_color: "rgb(33,33,33)", // legacy, actual value is derived from $('.chat_selfpost_color_default').css('background-color')
           color: getCookie("selfpostcolor"),
         },
         background: {
-          default_color: "rgb(24,24,24)",
+          default_color: "rgb(24,24,24)", // legacy, actual value is derived from $('.chat_background_color_default').css('background-color')
           color: getCookie("backgroundcolor"),
         },
       },
@@ -204,7 +212,7 @@ if(wgCanonicalSpecialPageName == 'Chat') {
      * Displays the options window
      */
     function openOptions() {
-      $.showCustomModal( "Options", '<form class="WikiaForm"><fieldset><div class="input-group"><label>Colors</label><div id="chat_look_backgroundcolor" class="chat_look"><div id="color_selector_backgroundcolor" class="color_selector"><div></div></div>Background color<a title="Reset colors to default">[x]</a></div><div id="chat_look_selfbackgroundcolor" class="chat_look"><div id="color_selector_selfbackgroundcolor" class="color_selector"><div></div></div>Own messages background color<a title="Reset colors to default">[x]</a></div><div id="chat_look_surroundcolor" class="chat_look"><div id="color_selectorsurroundcolor" class="color_selector"><div></div></div>Surround color<a title="Reset colors to default">[x]</a></div><div id="chat_look_fontcolor" class="chat_look"><div id="color_selector_fontcolor" class="color_selector"><div></div></div>Font color<a title="Reset colors to default">[x]</a></div></div><div class="input-group"><label>Font</label><select id="chat_look_fontface"><option value="arial" style="font-family:arial;">Arial</option><option value="courier new" style="font-family:courier new;">Courier new</option><option value="georgia" style="font-family:georgia;">Georgia</option><option value="palatino linotype" style="font-family:palatino linotype;">Palatino linotype</option><option value="Comic Sans MS" style="font-family:Comic Sans MS;">Comic sans</option><option value="tahoma" style="font-family:tahoma;">Tahoma</option><option value="Trebuchet MS" style="font-family:Trebuchet MS;">Trebuchet MS</option><option value="Verdana" style="font-family:Verdana;">Verdana</option><option value="Lucida Console" style="font-family:Lucida Console;">Lucida Console</option></select>Font family</div><div class="input-group"><label>Features</label><div id="chat_modules_chathacks"><input type="checkbox" name="ChatHacks" value="ChatHacks" id="ChatHacks"/>Enable <a href="http://c.wikia.com/wiki/User:Monchoman45/ChatHacks.js" target="_blank">chat hacks</a></div><div id="chat_modules_multipm"><input type="checkbox" name="MultiPM" value="MultiPM" id="MultiPM"/>Enable <a href="http://callofduty.wikia.com/wiki/User:Madnessfan34537/MultiPM.js" target="_blank">multi user messaging</a></div><div id="chat_modules_tabcomplete"><input type="checkbox" name="TabComplete" value="TabComplete" id="TabComplete"/>Enable <a href="http://runescape.wikia.com/wiki/User:Joeytje50/tabinsert.js" target="_blank">tab completion</a></div><div id="chat_modules_searchbar"><input type="checkbox" name="SearchBar" value="SearchBar" id="SearchBar"/>Enable <a href="http://callofduty.wikia.com/wiki/MediaWiki:Chat.js/SearchBar.js" target="_blank">wiki search bar</a></div><div id="chat_modules_multikick"><input type="checkbox" name="MultiKick" value="MultiKick" id="MultiKick" />Enable <a href="http://callofduty.wikia.com/wiki/User:Madnessfan34537/MultiKick.js" target="_blank">multi kick</a></div><div id="chat_modules_ignoreurl"><input type="checkbox" name="IgnoreURL" value="IgnoreURL" id="IgnoreURL"/>Ignore URL in main chat</div><div id="chat_modules_stopsidescroll"><input type="checkbox" name="StopSideScroll" value="StopSideScroll" id="StopSideScroll"/>Stop side scroll during spam</div></div></fieldset></form>',
+      $.showCustomModal( "Options", '<form class="WikiaForm"><fieldset><div class="input-group"><label>Colors</label><div id="chat_look_backgroundcolor" class="chat_look"><div id="color_selector_backgroundcolor" class="color_selector"><div></div></div>Background color<a title="Reset colors to default"><span class="chat_background_color_default chat_color_reset">&nbsp;</span></a></div><div id="chat_look_selfbackgroundcolor" class="chat_look"><div id="color_selector_selfbackgroundcolor" class="color_selector"><div></div></div>Own messages background color<a title="Reset colors to default"><span class="chat_selfpost_color_default chat_color_reset">&nbsp;</span></a></div><div id="chat_look_surroundcolor" class="chat_look"><div id="color_selectorsurroundcolor" class="color_selector"><div></div></div>Surround color<a title="Reset colors to default"><span class="chat_surround_color_default chat_color_reset">&nbsp;</span></a></div><div id="chat_look_fontcolor" class="chat_look"><div id="color_selector_fontcolor" class="color_selector"><div></div></div>Font color<a title="Reset colors to default"><span class="chat_font_color_default chat_color_reset">&nbsp;</span></a></div></div><div class="input-group"><label>Font</label><select id="chat_look_fontface"><option value="arial" style="font-family:arial;">Arial</option><option value="courier new" style="font-family:courier new;">Courier new</option><option value="georgia" style="font-family:georgia;">Georgia</option><option value="palatino linotype" style="font-family:palatino linotype;">Palatino linotype</option><option value="Comic Sans MS" style="font-family:Comic Sans MS;">Comic sans</option><option value="tahoma" style="font-family:tahoma;">Tahoma</option><option value="Trebuchet MS" style="font-family:Trebuchet MS;">Trebuchet MS</option><option value="Verdana" style="font-family:Verdana;">Verdana</option><option value="Lucida Console" style="font-family:Lucida Console;">Lucida Console</option></select>Font family</div><div class="input-group"><label>Features</label><div id="chat_modules_chathacks"><input type="checkbox" name="ChatHacks" value="ChatHacks" id="ChatHacks"/>Enable <a href="http://c.wikia.com/wiki/User:Monchoman45/ChatHacks.js" target="_blank">chat hacks</a></div><div id="chat_modules_multipm"><input type="checkbox" name="MultiPM" value="MultiPM" id="MultiPM"/>Enable <a href="http://callofduty.wikia.com/wiki/User:Madnessfan34537/MultiPM.js" target="_blank">multi user messaging</a></div><div id="chat_modules_tabcomplete"><input type="checkbox" name="TabComplete" value="TabComplete" id="TabComplete"/>Enable <a href="http://runescape.wikia.com/wiki/User:Joeytje50/tabinsert.js" target="_blank">tab completion</a></div><div id="chat_modules_searchbar"><input type="checkbox" name="SearchBar" value="SearchBar" id="SearchBar"/>Enable <a href="http://callofduty.wikia.com/wiki/MediaWiki:Chat.js/SearchBar.js" target="_blank">wiki search bar</a></div><div id="chat_modules_multikick"><input type="checkbox" name="MultiKick" value="MultiKick" id="MultiKick" />Enable <a href="http://callofduty.wikia.com/wiki/User:Madnessfan34537/MultiKick.js" target="_blank">multi kick</a></div><div id="chat_modules_ignoreurl"><input type="checkbox" name="IgnoreURL" value="IgnoreURL" id="IgnoreURL"/>Ignore URL in main chat</div><div id="chat_modules_stopsidescroll"><input type="checkbox" name="StopSideScroll" value="StopSideScroll" id="StopSideScroll"/>Stop side scroll during spam</div></div></fieldset></form>',
       {
         id: "optionsWindow",
         width: 450,
@@ -290,10 +298,10 @@ if(wgCanonicalSpecialPageName == 'Chat') {
       hookColorPicker('#color_selector_fontcolor', $('.WikiaPage').css('color'));
       
       // set up a default button after each of the color options that resets the color to the default
-      $('#chat_look_backgroundcolor a').click(function() { $('#color_selector_backgroundcolor div').css('background-color', chatOptions.look.background.default_color)});
-      $('#chat_look_selfbackgroundcolor a').click(function() { $('#color_selector_selfbackgroundcolor div').css('background-color', chatOptions.look.selfpost.default_color)});
-      $('#chat_look_surroundcolor a').click(function() { $('#color_selectorsurroundcolor div').css('background-color', chatOptions.look.surround.default_color)});
-      $('#chat_look_fontcolor a').click(function() { $('#color_selector_fontcolor div').css('background-color', chatOptions.look.font.default_color)});
+      $('#chat_look_backgroundcolor a').click(function() { $('#color_selector_backgroundcolor div').css('background-color', $('.chat_background_color_default').css('background-color'))});
+      $('#chat_look_selfbackgroundcolor a').click(function() { $('#color_selector_selfbackgroundcolor div').css('background-color', $('.chat_selfpost_color_default').css('background-color'))});
+      $('#chat_look_surroundcolor a').click(function() { $('#color_selectorsurroundcolor div').css('background-color', $('.chat_surround_color_default').css('background-color'))});
+      $('#chat_look_fontcolor a').click(function() { $('#color_selector_fontcolor div').css('background-color', $('.chat_font_color_default').css('background-color'))});
     }
     
     /**
